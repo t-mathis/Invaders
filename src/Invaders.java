@@ -255,52 +255,43 @@ public class Invaders extends Canvas implements Stage, KeyListener {
     }
 
     public void paintShields(Graphics2D g) {
-        g.setPaint(Color.red);
-        g.fillRect(250, Stage.PLAY_HEIGHT + 7, Player.MAX_SHIELDS / 2, 15);
-        g.setPaint(Color.blue);
-        g.fillRect(250 + (Player.MAX_SHIELDS - player.getShields()) / 2, Stage.PLAY_HEIGHT + 7, player.getShields() / 2, 15);
-        g.setFont(new Font("Arial", Font.BOLD, 20));
-        g.setPaint(Color.green);
-        g.drawString("S: " + player.getShields(), 150, Stage.PLAY_HEIGHT + 20);
-
+        paintBar(g, 7, Player.MAX_SHIELDS, player.getShields(), 1, "S: ", 20);
     }
 
     public void paintHealth(Graphics2D g) {
-        g.setPaint(Color.red);
-        g.fillRect(250, Stage.PLAY_HEIGHT + 26, (Player.HEALTH * 5) / 2, 15);
-        g.setPaint(Color.blue);
-        g.fillRect(250 + ((Player.HEALTH - player.getHealth()) * 5) / 2, Stage.PLAY_HEIGHT + 26, (player.getHealth() * 5) / 2, 15);
-        g.setFont(new Font("Arial", Font.BOLD, 20));
-        g.setPaint(Color.green);
-        g.drawString("H: " + player.getHealth(), 150, Stage.PLAY_HEIGHT + 40);
-
+        paintBar(g, 26, Player.HEALTH, player.getHealth(), 5, "H: ", 40);
     }
 
     public void paintArmor(Graphics2D g) {
+        paintBar(g, 45, Player.ARMOR, player.getArmor(), 1, "A: ", 60);
+    }
+    
+    public void paintBar(Graphics2D g, int stageOffset, int playerBarMax, int playerBarCur, int playerBarOffset, String barStr, int distance) {
         g.setPaint(Color.red);
-        g.fillRect(250, Stage.PLAY_HEIGHT + 45, (Player.ARMOR) / 4, 15);
+        g.fillRect(250, Stage.PLAY_HEIGHT + stageOffset, playerBarMax * playerBarOffset / 2, 15);
         g.setPaint(Color.blue);
-        g.fillRect(250 + ((Player.ARMOR - player.getArmor())) / 4, Stage.PLAY_HEIGHT + 45, (player.getArmor()) / 4, 15);
+        g.fillRect(250 + ((playerBarMax - playerBarCur) * playerBarOffset) / 2, Stage.PLAY_HEIGHT + stageOffset, playerBarCur * playerBarOffset/ 2, 15);
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.setPaint(Color.green);
-        g.drawString("A: " + player.getArmor(), 150, Stage.PLAY_HEIGHT + 60);
-
+        g.drawString(barStr + playerBarCur, 150, Stage.PLAY_HEIGHT + distance);
     }
 
     public void paintScore(Graphics2D g) {
-        g.setFont(new Font("Arial", Font.BOLD, 20));
-        g.setPaint(Color.green);
-        g.drawString("Score:", 20, Stage.PLAY_HEIGHT + 20);
-        g.setPaint(Color.red);
-        g.drawString(player.getScore() + "", 100, Stage.PLAY_HEIGHT + 20);
+        paintText(g, "Score: ", String.valueOf(player.getScore()), 20);
     }
 
     public void paintLevel(Graphics2D g) {
+        paintText(g, "Level: ", String.valueOf(level), 40);
+    }
+    
+    public void paintText(Graphics2D g, String text, String value, int stageOffset) {
+        int y = Stage.PLAY_HEIGHT + stageOffset;
+        
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.setPaint(Color.green);
-        g.drawString("Level:", 20, Stage.PLAY_HEIGHT + 40);
+        g.drawString(text, 20, y);
         g.setPaint(Color.red);
-        g.drawString(level + "", 100, Stage.PLAY_HEIGHT + 40);
+        g.drawString(value, 100, y);
     }
 
     public void paintAmmo(Graphics2D g) {

@@ -15,7 +15,7 @@ import java.awt.event.KeyEvent;
 public class Player extends Actor {
     public static final int MAX_SHIELDS = 500;
     public static final int HEALTH = 100;
-    public static final int ARMOR = 1000;
+    public static final int ARMOR = 500;
     public static int bombs;
     protected static final int PLAYER_SPEED = 5;
     protected int vx;
@@ -40,7 +40,7 @@ public class Player extends Actor {
             clusterBombs = 5;
         shields = MAX_SHIELDS;
         health = HEALTH;
-        if(level>3)
+        if(level>0)
          armor = ARMOR;
         else
          armor = 0;   
